@@ -1,25 +1,32 @@
-"""Тонкая обёртка над Anthropic SDK."""
+"""Тонкая обёртка над OpenAI-совместимым API.
 
-from anthropic import Anthropic
+Используется с Groq (https://api.groq.com/openai/v1). Совместимо с любым
+провайдером, реализующим OpenAI Chat Completions API: OpenAI, Groq,
+Together AI, Fireworks, локальный Ollama и т.п. — достаточно поменять base_url.
+"""
+
+from openai import OpenAI
 
 
 class LLMClient:
-    def __init__(self, api_key: str, model: str, max_tokens: int = 1024):
-        self._client = Anthropic(api_key=api_key)
+    def __init__(self, api_key: str, model: str, base_url: str, max_tokens: int = 1024):
+        self._client = OpenAI(api_key=api_key, base_url=base_url)
         self._model = model
         self._max_tokens = max_tokens
 
     def generate(self, system_prompt: str, history: list[dict]) -> str:
-        """Шлёт запрос в Claude. history — список {role, content}.
+        """Шлёт запрос в LLM. history — список {role, content}.
 
-        Возвращает текст ответа.
+        OpenAI Chat Completions ожидает system как первое сообщение в messages,
+        в отличие от Anthropic, где он отдельным параметром. Переупаковываем.
         """
-        response = self._client.messages.create(
+        messages = [{"role": "system", "content": system_prompt}] + history
+
+        response = self._client.chat.completions.create(
             model=self._model,
             max_tokens=self._max_tokens,
-            system=system_prompt,
-            messages=history,
+            messages=messages,
         )
-        # Anthropic возвращает content как list[TextBlock]
-        parts = [block.text for block in response.content if hasattr(block, "text")]
-        return "".join(parts)
+
+        choice = response.choices[0]
+        return choice.message.content or ""

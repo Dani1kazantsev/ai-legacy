@@ -8,9 +8,12 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     telegram_bot_token: str
-    anthropic_api_key: str
     owner_telegram_user_id: int
-    anthropic_model: str = "claude-opus-4-7"
+
+    # LLM provider (OpenAI-compatible API; defaults to Groq)
+    llm_api_key: str
+    llm_model: str = "llama-3.3-70b-versatile"
+    llm_base_url: str = "https://api.groq.com/openai/v1"
 
     # Пути к данным относительно корня проекта
     personality_dir: Path = Path("data/personality")

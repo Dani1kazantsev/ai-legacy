@@ -68,8 +68,12 @@ def main() -> None:
     few_shot = sample_examples(settings.messages_dir, n=10)
     logger.info("loaded personality + %d few-shot examples", len(few_shot))
 
-    # LLM-клиент
-    llm = LLMClient(api_key=settings.anthropic_api_key, model=settings.anthropic_model)
+    # LLM-клиент (OpenAI-совместимый — по умолчанию Groq)
+    llm = LLMClient(
+        api_key=settings.llm_api_key,
+        model=settings.llm_model,
+        base_url=settings.llm_base_url,
+    )
 
     # Handler
     handler = MessageHandler(
