@@ -65,7 +65,7 @@ def main() -> None:
 
     # Грузим personality и few-shot
     personality = load_personality(settings.personality_dir)
-    few_shot = sample_examples(settings.messages_dir, n=10)
+    few_shot = sample_examples(settings.messages_dir, n=30)
     logger.info("loaded personality + %d few-shot examples", len(few_shot))
 
     # LLM-клиент (OpenAI-совместимый — по умолчанию Groq)
