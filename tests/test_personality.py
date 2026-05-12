@@ -9,6 +9,7 @@ def test_loads_all_personality_files(tmp_path):
     (tmp_path / "biography.md").write_text("# Био\nРодился в Москве.")
     (tmp_path / "relationships.md").write_text("# Отношения\n## Жена\nИрина")
     (tmp_path / "phrases.md").write_text("# Фразы\n- Чики-пуки")
+    (tmp_path / "behavior.md").write_text("# Поведение\nКороткие реплики.")
 
     p = load_personality(tmp_path)
 
@@ -18,6 +19,7 @@ def test_loads_all_personality_files(tmp_path):
     assert "Москве" in p.biography
     assert "Ирина" in p.relationships
     assert "Чики-пуки" in p.phrases
+    assert "Короткие реплики" in p.behavior
 
 
 def test_missing_file_raises(tmp_path):

@@ -11,6 +11,7 @@ _REQUIRED_FILES = (
     "biography.md",
     "relationships.md",
     "phrases.md",
+    "behavior.md",
 )
 
 
@@ -22,6 +23,7 @@ class Personality:
     biography: str
     relationships: str
     phrases: str
+    behavior: str
 
 
 def load_personality(directory: Path) -> Personality:

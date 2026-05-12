@@ -68,6 +68,11 @@ def main() -> None:
     few_shot = sample_examples(settings.messages_dir, n=30)
     logger.info("loaded personality + %d few-shot examples", len(few_shot))
 
+    # RAG-индекс по всем чатам
+    from ai_legacy.rag import build_index_from_messages
+    rag_index = build_index_from_messages(settings.messages_dir)
+    logger.info("built RAG index with %d examples", len(rag_index))
+
     # LLM-клиент (OpenAI-совместимый — по умолчанию Groq)
     llm = LLMClient(
         api_key=settings.llm_api_key,
@@ -79,6 +84,7 @@ def main() -> None:
     handler = MessageHandler(
         db=db, llm=llm, personality=personality,
         few_shot=few_shot, owner_name="Данила",
+        rag_index=rag_index,
     )
 
     # Telegram
