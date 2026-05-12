@@ -40,11 +40,14 @@ class Database:
             )
 
     def get_recent_messages(self, user_id: int, limit: int = 30) -> list[dict]:
-        """Возвращает последние сообщения для user_id, в хронологическом порядке (старые → новые)."""
+        """Возвращает последние сообщения для user_id, в хронологическом порядке (старые → новые).
+
+        Каждое сообщение: {"role": str, "content": str} — формат, готовый для Anthropic API.
+        """
         with self._connect() as conn:
             rows = conn.execute(
                 """
-                SELECT role, content, created_at
+                SELECT role, content
                 FROM messages
                 WHERE user_id = ?
                 ORDER BY id DESC
@@ -53,4 +56,4 @@ class Database:
                 (user_id, limit),
             ).fetchall()
         # Перевернуть в хронологический порядок
-        return [dict(r) for r in reversed(rows)]
+        return [{"role": r["role"], "content": r["content"]} for r in reversed(rows)]

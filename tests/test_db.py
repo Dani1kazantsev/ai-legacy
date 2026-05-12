@@ -40,3 +40,15 @@ def test_init_schema_idempotent(tmp_path):
     db.init_schema()  # не должно падать
     db.add_message(user_id=1, role="user", content="ok")
     assert len(db.get_recent_messages(user_id=1, limit=5)) == 1
+
+
+def test_get_recent_messages_returns_only_role_and_content(tmp_path):
+    """Регрессия: get_recent_messages не возвращает created_at или другие поля,
+    т.к. результат идёт напрямую в Anthropic API, который принимает только role+content."""
+    db = Database(tmp_path / "t.db")
+    db.init_schema()
+    db.add_message(user_id=1, role="user", content="hi")
+
+    messages = db.get_recent_messages(user_id=1, limit=10)
+    assert len(messages) == 1
+    assert set(messages[0].keys()) == {"role", "content"}
