@@ -1,0 +1,48 @@
+{
+  "name": "Test Chat",
+  "type": "personal_chat",
+  "id": 12345,
+  "messages": [
+    {
+      "id": 1,
+      "type": "message",
+      "date": "2024-01-15T10:30:00",
+      "from": "Данила",
+      "from_id": "user987",
+      "text": "Привет, как дела?"
+    },
+    {
+      "id": 2,
+      "type": "message",
+      "date": "2024-01-15T10:31:00",
+      "from": "Друг",
+      "from_id": "user123",
+      "text": "Норм, у тебя?"
+    },
+    {
+      "id": 3,
+      "type": "message",
+      "date": "2024-01-15T10:32:00",
+      "from": "Данила",
+      "from_id": "user987",
+      "text": "Тоже норм. Сегодня день рождения у мамы, едем к ней."
+    },
+    {
+      "id": 4,
+      "type": "message",
+      "date": "2024-01-15T10:33:00",
+      "from": "Друг",
+      "from_id": "user123",
+      "media_type": "voice_message",
+      "file": "voice_messages/file_1.ogg",
+      "text": ""
+    },
+    {
+      "id": 5,
+      "type": "service",
+      "date": "2024-01-15T10:34:00",
+      "action": "phone_call",
+      "duration_seconds": 60
+    }
+  ]
+}
