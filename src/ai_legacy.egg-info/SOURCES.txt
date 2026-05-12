@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/ai_legacy/__init__.py
+src/ai_legacy.egg-info/PKG-INFO
+src/ai_legacy.egg-info/SOURCES.txt
+src/ai_legacy.egg-info/dependency_links.txt
+src/ai_legacy.egg-info/requires.txt
+src/ai_legacy.egg-info/top_level.txt

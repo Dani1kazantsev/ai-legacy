@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+data/messages/*.json
+!data/messages/.gitkeep
+data/voice/*.ogg
+!data/voice/.gitkeep
+*.db
+.DS_Store

@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: ai-legacy
+Version: 0.1.0
+Summary: AI copy of a person, accessible after death
+Requires-Python: >=3.11
+Requires-Dist: python-telegram-bot>=21.0
+Requires-Dist: anthropic>=0.40.0
+Requires-Dist: pydantic>=2.0
+Requires-Dist: pydantic-settings>=2.0
+Requires-Dist: python-dotenv>=1.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23; extra == "dev"
