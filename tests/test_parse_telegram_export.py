@@ -45,3 +45,9 @@ def test_output_includes_chat_metadata():
     result = parse_export(FIXTURE, owner_from_id="user987")
     assert result["chat_name"] == "Test Chat"
     assert result["chat_type"] == "personal_chat"
+
+
+def test_text_to_string_handles_unexpected_types():
+    """_text_to_string не падает на list с неожиданными типами."""
+    from scripts.parse_telegram_export import _text_to_string
+    assert _text_to_string(["hello", 123, {"text": " world"}, None]) == "hello world"

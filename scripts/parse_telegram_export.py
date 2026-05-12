@@ -67,7 +67,14 @@ def _text_to_string(text: Any) -> str:
     if isinstance(text, str):
         return text
     if isinstance(text, list):
-        return "".join(t if isinstance(t, str) else t.get("text", "") for t in text)
+        parts: list[str] = []
+        for t in text:
+            if isinstance(t, str):
+                parts.append(t)
+            elif isinstance(t, dict):
+                parts.append(t.get("text", ""))
+            # silently skip other types
+        return "".join(parts)
     return ""
 
 
