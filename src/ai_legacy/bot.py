@@ -80,11 +80,13 @@ def main() -> None:
         base_url=settings.llm_base_url,
     )
 
-    # Handler
+    # Handler — полные параметры (gemma2-9b-it имеет 15k TPM)
     handler = MessageHandler(
         db=db, llm=llm, personality=personality,
         few_shot=few_shot, owner_name="Данила",
         rag_index=rag_index,
+        rag_top_k=8,
+        history_limit=30,
     )
 
     # Telegram

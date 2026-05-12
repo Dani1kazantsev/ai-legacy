@@ -14,7 +14,9 @@ def _make_personality() -> Personality:
     )
 
 
-def test_system_prompt_includes_all_personality_blocks():
+def test_system_prompt_includes_personality_blocks_except_biography():
+    """Биография намеренно НЕ включается в системный промпт — она подтянется через RAG.
+    Это экономит токены для бесплатных тиров LLM-провайдеров."""
     p = _make_personality()
     examples = [{"in": "Привет", "out": "Йо"}]
 
@@ -23,10 +25,11 @@ def test_system_prompt_includes_all_personality_blocks():
     assert "Честность важнее комфорта" in prompt
     assert "ИИ — это будущее" in prompt
     assert "Саркастичный" in prompt
-    assert "Родился в 1995" in prompt
     assert "Чики-пуки" in prompt
     assert "Пишу короткими репликами" in prompt
     assert "Данила" in prompt
+    # Biography intentionally absent — RAG will surface biographical context when relevant
+    assert "Родился в 1995" not in prompt
 
 
 def test_system_prompt_includes_few_shot_examples():
